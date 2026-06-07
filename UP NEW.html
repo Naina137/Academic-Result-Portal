@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Academic Result Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+
+            background:
+                linear-gradient(rgba(8, 20, 55, 0.88),
+                    rgba(90, 15, 45, 0.88)),
+
+                url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600");
+
+            background-size: cover;
+            background-position: center;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .container {
+
+            width: 900px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            backdrop-filter: blur(10px);
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            box-shadow:
+                0px 10px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        /* DARK WATERMARK */
+
+        .container::before {
+
+            content: "AMC";
+
+            position: absolute;
+
+            top: 52%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%) rotate(-25deg);
+
+            font-size: 180px;
+
+            font-weight: 800;
+
+            color: rgba(10, 25, 65, 0.09);
+
+            letter-spacing: 12px;
+
+            pointer-events: none;
+        }
+
+        /* HEADER */
+
+        .header {
+
+            background:
+                linear-gradient(135deg, #071c46, #163d89);
+
+            padding: 35px;
+
+            text-align: center;
+
+            color: white;
+
+            position: relative;
+        }
+
+        .header::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 4px;
+
+            background: linear-gradient(to right, #ffd700, #ffffff, #ffd700);
+        }
+
+        .logo {
+
+            width: 85px;
+            height: 85px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            background: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: #08245c;
+
+            font-size: 34px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .header h1 {
+
+            font-size: 36px;
+
+            letter-spacing: 2px;
+        }
+
+        .header p {
+
+            margin-top: 8px;
+
+            letter-spacing: 3px;
+
+            font-size: 14px;
+
+            opacity: 0.9;
+        }
+
+        /* CONTENT */
+
+        .content {
+
+            padding: 35px;
+        }
+
+        .search-box {
+
+            background: #f4f7ff;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            border: 1px solid #d9e1f2;
+        }
+
+        .search-box label {
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            color: #111;
+        }
+
+        input {
+
+            width: 100%;
+
+            margin-top: 12px;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            border: 1px solid #bbb;
+
+            outline: none;
+
+            font-size: 16px;
+
+            transition: 0.3s;
+        }
+
+        input:focus {
+
+            border-color: #163d89;
+
+            box-shadow: 0px 0px 12px rgba(22, 61, 137, 0.25);
+        }
+
+        button {
+
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(135deg, #08245c, #1f4ea8);
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0px 8px 18px rgba(8, 36, 92, 0.35);
+        }
+
+        /* RESULT CARD */
+
+        .result-card {
+
+            margin-top: 30px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            border: 1px solid #ddd;
+
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        .result-top {
+
+            background:
+                linear-gradient(135deg, #08245c, #234d9c);
+
+            color: white;
+
+            padding: 22px;
+
+            text-align: center;
+        }
+
+        .result-top h2 {
+
+            font-size: 30px;
+        }
+
+        .result-body {
+
+            padding: 25px;
+        }
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .details div {
+
+            background: #f6f8ff;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            border-left: 5px solid #163d89;
+        }
+
+        .details span {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #666;
+
+            margin-bottom: 5px;
+        }
+
+        .details b {
+
+            color: #111;
+        }
+
+        /* TABLE */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            overflow: hidden;
+
+            border-radius: 12px;
+        }
+
+        table th {
+
+            background: #08245c;
+
+            color: white;
+
+            padding: 14px;
+
+            font-size: 15px;
+        }
+
+        table td {
+
+            padding: 13px;
+
+            text-align: center;
+
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+
+            background: #f9fbff;
+        }
+
+        /* CGPA */
+
+        .cgpa-box {
+
+            margin-top: 25px;
+
+            background: linear-gradient(135deg, #e9fff0, #f2fff7);
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            border: 1px solid #b5ecc6;
+        }
+
+        .cgpa-box h3 {
+
+            color: #0c8a39;
+
+            font-size: 34px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #d6bbbb;
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+        }
+
+        .loading {
+
+            text-align: center;
+
+            margin-top: 30px;
+
+            color: #08245c;
+
+            font-weight: 600;
+
+            font-size: 20px;
+
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .error {
+
+            margin-top: 25px;
+
+            background: #ffecec;
+
+            color: #971414;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            font-size: 20px;
+
+            font-weight: 600;
+        }
+
+        @media(max-width:768px) {
+
+            .container {
+                width: 100%;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .container::before {
+                font-size: 120px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="logo">
+                AMC
+            </div>
+
+            <h1> ACADEMIC RESULT PORTAL</h1>
+
+            <p>AMC ENGINEERING COLLEGE</p>
+
+        </div>
+
+        <div class="content">
+
+            <div class="search-box">
+
+                <label>Enter University Seat Number (USN)</label>
+
+                <input type="text" id="usn" placeholder="Example : 1AM24CS091">
+
+                <button onclick="analyze()">
+
+                    SEARCH RESULT
+
+                </button>
+
+            </div>
+
+            <div id="result"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function analyze() {
+
+            let usn =
+                document.getElementById("usn")
+                    .value
+                    .toUpperCase();
+
+            let result =
+                document.getElementById("result");
+
+            result.innerHTML = `
+
+        <div class="loading">
+
+            Fetching Result...
+
+        </div>
+
+    `;
+
+            let students = {
+
+                "1AM24CS091": {
+
+                    name: "Rahul Sharma",
+                    branch: "CSE",
+                    sem: "4th",
+                    cgpa: "8.9",
+
+                    subjects: [
+
+                        { code: "BCS401", name: "Mathematics", marks: 92 },
+                        { code: "BCS402", name: "DBMS", marks: 84 },
+                        { code: "BCS403", name: "Operating System", marks: 88 },
+                        { code: "BCS404", name: "DSA", marks: 91 },
+                        { code: "BCS405", name: "Python", marks: 90 }
+
+                    ]
+                },
+
+                "1AM24ISE106": {
+
+                    name: "Priya Verma",
+                    branch: "ISE",
+                    sem: "4th",
+                    cgpa: "9.1",
+
+                    subjects: [
+
+                        { code: "BIS401", name: "Mathematics", marks: 95 },
+                        { code: "BIS402", name: "DBMS", marks: 90 },
+                        { code: "BIS403", name: "CN", marks: 89 },
+                        { code: "BIS404", name: "Java", marks: 94 },
+                        { code: "BIS405", name: "Python", marks: 91 }
+
+                    ]
+                },
+
+                "1AM24ECE006": {
+
+                    name: "Aman Khan",
+                    branch: "ECE",
+                    sem: "4th",
+                    cgpa: "8.3",
+
+                    subjects: [
+
+                        { code: "BEC401", name: "Signals", marks: 80 },
+                        { code: "BEC402", name: "VLSI", marks: 84 },
+                        { code: "BEC403", name: "Microcontroller", marks: 82 },
+                        { code: "BEC404", name: "DE", marks: 86 },
+                        { code: "BEC405", name: "Network Theory", marks: 79 }
+
+                    ]
+                },
+
+                "1AM24CD057": {
+
+                    name: "Naina Gupta",
+                    branch: "CS-DS",
+                    sem: "4th",
+                    cgpa: "9.0",
+
+                    subjects: [
+
+                        { code: "BAI401", name: "Statistics", marks: 88 },
+                        { code: "BAI402", name: "Machine Learning", marks: 91 },
+                        { code: "BAI403", name: "Python", marks: 93 },
+                        { code: "BAI404", name: "DBMS", marks: 85 },
+                        { code: "BAI405", name: "AI Fundamentals", marks: 89 }
+
+                    ]
+                }
+
+            };
+
+            setTimeout(() => {
+
+                if (students[usn]) {
+
+                    let s = students[usn];
+
+                    let rows = "";
+
+                    s.subjects.forEach(sub => {
+
+                        rows += `
+
+                <tr>
+
+                    <td>${sub.code}</td>
+                    <td>${sub.name}</td>
+                    <td>${sub.marks}</td>
+                    <td>P</td>
+
+                </tr>
+
+                `;
+                    });
+
+                    result.innerHTML = `
+
+            <div class="result-card">
+
+                <div class="result-top">
+
+                    <h2>Student Result Sheet</h2>
+
+                </div>
+
+                <div class="result-body">
+
+                    <div class="details">
+
+                        <div>
+                            <span>USN</span>
+                            <b>${usn}</b>
+                        </div>
+
+                        <div>
+                            <span>Student Name</span>
+                            <b>${s.name}</b>
+                        </div>
+
+                        <div>
+                            <span>Branch</span>
+                            <b>${s.branch}</b>
+                        </div>
+
+                        <div>
+                            <span>Semester</span>
+                            <b>${s.sem}</b>
+                        </div>
+
+                    </div>
+
+                    <table>
+
+                        <tr>
+
+                            <th>Subject Code</th>
+                            <th>Subject Name</th>
+                            <th>Marks</th>
+                            <th>Result</th>
+
+                        </tr>
+
+                        ${rows}
+
+                    </table>
+
+                    <div class="cgpa-box">
+
+                        <p>Overall CGPA</p>
+
+                        <h3>${s.cgpa}</h3>
+
+                    </div>
+
+                    <div class="footer">
+
+                        Visvesvaraya Technological University (VTU)
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            `;
+                }
+
+                else {
+
+                    result.innerHTML = `
+
+            <div class="error">
+
+                Invalid USN
+
+            </div>
+
+            `;
+                }
+
+            }, 1000);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
